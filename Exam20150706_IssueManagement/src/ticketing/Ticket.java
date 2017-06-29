@@ -7,6 +7,23 @@ package ticketing;
  */
 public class Ticket {
 
+	private int id;
+	private User reporter;
+	private Component component;
+	private String description;
+	private Severity severity;
+	private State status;
+	private User mantainer;
+	
+	public Ticket(int id, User user, Component component, String description, Severity severity) {
+		this.id = id;
+		this.reporter = user;
+		this.component = component;
+		this.description = description;
+		this.severity = severity;
+		this.status = State.Open;
+	}
+
 	/**
 	 * Enumeration of possible severity levels for the tickets.
 	 * 
@@ -24,30 +41,46 @@ public class Ticket {
 	}
 
 	public int getId() {
-		return -1;
+		return id;
 	}
 
 	public String getDescription() {
-		return null;
+		return description;
 	}
 
 	public Severity getSeverity() {
-		return null;
+		return severity;
 	}
 
 	public String getAuthor() {
-		return null;
+		return reporter.getUsername();
 	}
 
 	public String getComponent() {
-		return null;
+		return component.getPath();
 	}
 
 	public State getState() {
-		return null;
+		return status;
+	}
+	
+	public String getMantainer() {
+		return mantainer.getUsername();
 	}
 
 	public String getSolutionDescription() throws TicketException {
-		return null;
+		if(status != State.Closed)
+			throw new TicketException();
+		return description;
+	}
+
+	public void assignMaintainer(User u) {
+		mantainer = u;
+		status = State.Assigned;
+	}
+
+	public void closeTicket(String description) {
+		this.description = description;
+		status = State.Closed;
 	}
 }
