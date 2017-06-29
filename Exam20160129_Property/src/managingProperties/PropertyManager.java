@@ -38,8 +38,13 @@ public class PropertyManager {
 		for(String a : apartments) {
 			String[] info = a.split(":");
 			Building b = buildings.get(info[0]);
+			int apartNo = Integer.valueOf(info[1]);
 			if(b == null)
 				throw new PropertyException("Building does not exist!");
+			if(apartNo > b.getNumApartments() || apartNo < 1)
+				throw new PropertyException("Unvalid apartment number!");
+			if(ownerApt.containsKey(a))
+				throw new PropertyException("Apartment already exists!");
 			ownerApt.put(a, owner);
 		}
 	}
@@ -104,7 +109,12 @@ public class PropertyManager {
 	}
 
 	public void charge(int requestN, int amount) throws PropertyException {
-		Request r = requests.get(requestN - 1);
+		Request r;
+		try {
+			r = requests.get(requestN - 1);
+		} catch(IndexOutOfBoundsException e) {
+			r = null;
+		}
 		if(r == null || ! r.getStatus().equalsIgnoreCase("assigned") ||
 				amount < 0 || amount > 1000)
 			throw new PropertyException();
@@ -144,7 +154,7 @@ public class PropertyManager {
 				.filter(r -> r.getStatus().equalsIgnoreCase("completed") && r.getCharge() != 0)
 				.collect(Collectors.groupingBy(Request::getBuilding,
 						TreeMap::new,
-						Collectors.groupingBy(Request::getProfession, 
+						Collectors.groupingBy(Request::getProfessional, 
 								TreeMap::new,
 								Collectors.summingInt(Request::getCharge))));
 		}
