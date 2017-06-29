@@ -1,0 +1,68 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html>
+<head>
+  <title>Object Oriented Programming</title>
+</head>
+<body>
+<h2 style="text-align: center;">Web Forum<br>
+</h2>
+Develop the core of a program to manage a web forum. All the classes belong to package <code>forum</code>.<br>
+
+<hr style="width: 100%; height: 2px;">
+
+<h3>R1 - Users</h3>
+Management takes place through the facade class <b>Forum</b>, whose constructor receives as arguments
+a string containing the web url the forum will respond at  (e.g. <code>http//www.polito.it/forum/Java/</code>), 
+and which can be retrieved through method <b>getUrl()</b>.
+<br>
+To participate in the forum users must be previously registered through method <b>registerUser()</b> 
+that receives as arguments nickname, first name, last name, email address, and password. 
+In case the nickname is duplicated, the method must generate DuplicatedNickname exception. 
+The method returns a <b>User</b> object.
+<br>
+Class User provides the getter methods, <b>getNick()</b>, <b>getFirst()</b>, <b>getLast()</b>, 
+and <b>getEmail()</b> to read the respective attributes values.
+<br>
+Class Forum privides the method <b>login()</b> that accepts a nickname and a password 
+and if a user exists with matching nickname and password returns the corresponding object, 
+otherwise it returns null.
+<p>
+
+<h3>R2. Topic</h3>
+The forum is structured into topics that can be created through method <b>createTopic()</b> 
+of class Forum receiving as arguments the name, the subject, and the user who creates it; 
+the method returns a <b>Topic</b> object. Given a topic object its characteristics can be 
+accessed through methods <b>getName()</b>, <b>getSubject()</b>, and <b>getUser()</b>.
+<br>
+Class Forum provides the method <b>listTopic()</b> returning a collection of the created topics.
+<p>
+
+<h3>R3. Messages</h3>
+Users can submit messages to the topics through method <b>submitMessage()</b> of class Topic 
+that receives as arguments the user, the title of the message, the body of the message and returns 
+a <b>Message</b> object.
+<br>
+Given a message it is possible to know title, body, user who submitted it, and topic in which 
+it was submitted, respectively through the methods <b>getTitle()</b>, <b>getBody()</b>, <b>getUser()</b>, 
+<b>getTopic()</b>. Moreover the method <b>getTimestamp()</b> returns the system time at which 
+the message was submitted (i.e. the time when the submitMessage() method was called).
+<br>
+Method <b>getMessages()</b> of class Topic returns the collection of all messages 
+submitted to the topic.
+<br>
+<i>
+Hint: to get system system time use the method: System.currentTimeMillis() that returns a long.
+</i>
+<p>
+
+<h3>R4. Statistics</h3>
+For each user it is possible to know the number of submitted messages through method <b>numSubmitted()</b> 
+of class User. In addition the method <b>rankUsers()</b> of class Forum returns the collection of 
+all users sorted by decreasing number of submitted messages.
+<br>
+Method <b>numMessages()</b> of class Topic returns the number of messages submitted to the topic.<br> 
+Method <b>averageMessages()</b> of class Forum returns the average number of messages submitted to all topics.
+<p>
+<hr style="width: 100%; height: 2px;"><br>
+</body>
+</html>
