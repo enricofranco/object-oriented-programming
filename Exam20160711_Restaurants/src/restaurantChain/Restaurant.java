@@ -73,7 +73,7 @@ public class Restaurant {
 
 	public List<String> getUnordered() {
 		return groups.keySet().stream()
-				.filter(g -> orderGroups.get(g) != null)
+				.filter(g -> orderGroups.get(g) == null)
 				.sorted()
 				.collect(Collectors.toList());
 	}
@@ -82,7 +82,8 @@ public class Restaurant {
 		if(! groups.containsKey(name))
 			throw new InvalidName();
 		if(! orderGroups.containsKey(name))
-			throw new RuntimeException();
+			return 0.0;
+		payedGroups.add(name);
 		double amount = orderGroups.get(name).stream()
 				.mapToDouble(m -> menus.get(m))
 				.sum();
