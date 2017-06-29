@@ -1,30 +1,44 @@
 package forum;
 
 import java.util.Collection;
+import java.util.LinkedList;
+import java.util.List;
 
 public class Topic {
+	private String name;
+	private String subject;
+	private User user;
+	private List<Message> messages = new LinkedList<>();
+
+	public Topic(String name, String subject, User user) {
+		this.name = name;
+		this.subject = subject;
+		this.user = user;
+	}
 
 	public String getName() {
-		return null;
+		return name;
 	}
 
 	public String getSubject() {
-		return null;
+		return subject;
 	}
 
 	public User getUser() {
-		return null;
+		return user;
 	}
 
 	public Message submitMessage(User user, String title, String body) {
-		return null;
+		Message m = new Message(title, body, user, this);
+		messages.add(m);
+		return m;
 	}
 
 	public Collection<Message> getMessagges() {
-		return null;
+		return messages;
 	}
 
 	public long numMessages() {
-		return -1;
+		return messages.size();
 	}
 }

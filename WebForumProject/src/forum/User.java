@@ -1,28 +1,50 @@
 package forum;
 
 public class User implements Comparable<User> {
+	private String nick;
+	private String first;
+	private String last;
+	private String email;
+	private String password;
+	private long numMessages = 0;
+
+	public User(String nick, String first, String last, String email, String password) {
+		this.nick = nick;
+		this.first = first;
+		this.last = last;
+		this.email = email;
+		this.password = password;
+	}
 
 	public String getNick() {
-		return null;
+		return nick;
 	}
 
 	public String getFirst() {
-		return null;
+		return first;
 	}
 
 	public String getLast() {
-		return null;
+		return last;
 	}
 
 	public String getEmail() {
-		return null;
+		return email;
+	}
+
+	public String getPassword() {
+		return password;
+	}
+
+	public void addMessage() {
+		++numMessages;
 	}
 
 	public long numSubmitted() {
-		return -1;
+		return numMessages;
 	}
 
-	public int compareTo(User arg0) {
-		return 0;
+	public int compareTo(User u) {
+		return Long.valueOf(u.numSubmitted()).compareTo(this.numSubmitted());
 	}
 }
