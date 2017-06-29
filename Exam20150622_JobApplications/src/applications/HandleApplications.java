@@ -1,6 +1,5 @@
 package applications;
 
-import java.util.Comparator;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -56,6 +55,8 @@ public class HandleApplications {
 			if(skill == null)
 				throw new ApplicationException();
 			int level = Integer.parseInt(capability[1]);
+			if(level < 1 || level > 10)
+				throw new ApplicationException();
 			a.addCapability(skill, level);
 		}
 		applicants.put(name, a);
@@ -96,17 +97,16 @@ public class HandleApplications {
 	}
 
 	public SortedMap<String, Long> skill_nApplicants() {
-		return null;
-//		skills.values().stream()
-//				.map(Collectors.groupingBy(Skill::getName,
-//						TreeMap::new,
-//						Skill::getNumApplicants));
+		return applicants.values().stream()
+				.flatMap(a -> a.getCapabilitiesSet().stream())
+				.collect(Collectors.groupingBy(Skill::getName,
+						TreeMap::new,
+						Collectors.counting()));
 	}
 
 	public String maxPosition() {
 		return positions.values().stream()
-//				.reduce(Collectors.maxBy(Position::getNumberApplicants))
-				.sorted((e1, e2) -> e1.getNumberApplicants() - e2.getNumberApplicants())
+				.sorted((e1, e2) -> e2.getNumberApplicants() - e1.getNumberApplicants())
 				.map(Position::getName)
 				.findFirst().orElse(null);
 	}

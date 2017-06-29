@@ -3,6 +3,7 @@ package applications;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.Set;
 import java.util.stream.Collectors;
 
 public class Applicant implements Comparable<Applicant> {
@@ -16,7 +17,6 @@ public class Applicant implements Comparable<Applicant> {
 	
 	public void addCapability(Skill skill, int level) {
 		capabilities.put(skill, level);
-		skill.addApplicant();
 	}
 	
 	public boolean checkCapability(Skill s) {
@@ -29,6 +29,10 @@ public class Applicant implements Comparable<Applicant> {
 	
 	public Position getPosition() {
 		return position;
+	}
+	
+	public Set<Skill> getCapabilitiesSet() {
+		return capabilities.keySet();
 	}
 	
 	public String getCapabilities() {
