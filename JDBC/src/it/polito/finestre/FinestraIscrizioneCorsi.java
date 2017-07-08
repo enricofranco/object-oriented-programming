@@ -26,7 +26,7 @@ public class FinestraIscrizioneCorsi extends JFrame {
 	private final Dimension dim = getToolkit().getScreenSize();
 
 	private JButton iscrivi;
-	private JComboBox cod_corso;
+	private JComboBox<String> cod_corso;
 	private JTextField cod_cliente;
 	private JTextField msg;
 
@@ -67,7 +67,7 @@ public class FinestraIscrizioneCorsi extends JFrame {
 
 		c.gridx = 0;
 		c.gridy = 1;
-		cod_corso = new JComboBox(db.ottieniCodiciCorsi().toArray(new String[0]));
+		cod_corso = new JComboBox<String>(db.ottieniCodiciCorsi().toArray(new String[0]));
 		center_panel.add(cod_corso, c);
 		c.gridx = 2;
 		c.gridy = 1;
