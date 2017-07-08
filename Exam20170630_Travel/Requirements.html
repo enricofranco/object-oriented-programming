@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+<meta charset="utf-8">
+<title>Travel proposals</title>
+<link href=".css.css" rel="stylesheet" type="text/css">
+<style>
+@media print {  /* adjusted to print the html to a single-page pdf */
+body {
+    font-size: 10pt;
+}
+</style>
+</head>
+<body>
+
+<h1>Travel proposals</h1>
+<p>
+
+Write a program for managing travel proposals. Classes are in the package <b>travels</b>; the main class is <b>TravelHandling</b>. The class <b>Example</b> inside package <b>main</b> contains some driver for the the main methods together with samples of the required checks. The type for exceptions is <b>TravelException</b>.
+
+<p>
+
+The JDK documentation is available from <a href="http://softeng.polito.it/courses/docs/api/index.html" target="api" target="_blank">http://softeng.polito.it/courses/docs/api/</a>.
+
+
+<h2>R1: Users and destinations</h2>
+
+The method <b>addCustomers</b>(String... custNames) defines users with their names.
+
+<p>
+
+The method <b>addDestination</b>(String destinationName, String... operatorNames) defines a destination and the operators that include it among their destinations; the method throws an exception if the destination name has already been defined. The method also defines the operators the first time they are mentioned.
+
+<p>
+
+The method <b>getDestinations</b>(String operatorName) returns a list with the names of all the available destinations for the given operator, in alphabetic order.<p>
+
+<h2>R2: Proposals</h2>
+
+The method <b>addProposal</b>(String proposalName, String destinationName) defines a travel proposal given its name and the destination; it throws an exception if the proposal already exists, or if the destination is not defined.
+
+<p>
+
+The method <b>setUsers</b>(String proposalName, String... userNames) associates a set of users, identified by their names, with a proposal, identified by its name. The names not corresponding to existing users are returned in alphabetic order in a list.
+
+<h2>R3: Quotes</h2>
+
+The method <b>setOperators</b>(String proposalName, String... operatorNames) associates a proposal with operators. Operators need to include the proposal's destination among their destinations. The names not corresponding to existing operators, and the names corresponding to operators that do not include the proposal's destination among their destinations are returned in alphabetic order in a list.
+
+<p>
+
+The method <b>addQuote</b>(String proposalName, String operatorName, int amount) defines the amount of the quote for the proposal of an operator; the method throws an exception if the operator is not associated with the proposal.
+
+<p>
+
+The method <b>getQuotes</b>(String proposalName) returns the list of all offers associated with the specific proposal, with the operators' names in alphabetic order.
+
+<p>
+
+The class <b>Quote</b> contains the methods getProposalName, getOperatorName, getAmount, getNChoices for reading the proposal's name, the operator's name, the amount, and the number of choices (see R4).<p>
+
+<h2>R4: Choices</h2>
+
+The method <b>makeChoice</b>(String proposalName, String userName, String operatorName) let a user select a quote for a proposal, where the quote is the one provided by the given operator. The method throws an exception if the user was not associated with the proposal, or if the operator did not presented a quote for the proposal. Note: to keep track that user <b>u</b> selected quote <b>q</b>, <b>u</b> may be associated with <b>q</b>.
+
+<p>
+
+The method <b>getWinningQuote</b>(String proposalName) returns the winning quote for a proposal, that is, the quote that has been selected by more users; if several quotes have been selected by the maximum number of users, it returns the one where the amount of the quote is minimum. The method returns null if no quote is linked to the proposal.
+
+<h2>R5: Statistics</h2>
+
+The method <b>totalAmountOfQuotesPerDestination</b> returns the total amount of all quotes for the destinations, in alphabetical order. Destinations with no quotes are ignored. Note: the destination of a quote is the destination of the proposal linked with the quote.
+
+<p>
+
+The method <b>operatorsPerNumberOfQuotes</b> returns the list of operators (in alphabetic order), sorted by decreasing number of quotes. Operators with no quote are ignored.
+
+<p>
+
+The method <b>numberOfUsersPerDestination</b> returns the number of users per destination; destinations are listed in alphabetical order; destinations with no user are ignored. Note: the destinations of a user are the destinations of proposals associated with the user the method setUsers.
+
+</body>
+</html>
